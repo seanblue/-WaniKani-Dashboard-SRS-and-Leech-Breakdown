@@ -22,6 +22,52 @@
 		return;
 	}
 
+     let style =
+		`<style>
+.srs-innner-progress {
+	position: relative;
+	color: #fff;
+}
+.srs-progress .srs-innner-progress span.srs-inner-progress-count {
+    display: inline;
+    font-size: 15px;
+    font-weight: initial;
+    text-shadow: initial;
+}
+.dashboard section.srs-progress span {
+    margin-bottom: 4px;
+}
+.dashboard section.srs-progress .srs-innner-progress .leech-count .leech-breakdown {
+    background-color: black;
+    font-size: 0.8em;
+    font-weight: 100;
+    opacity: 0.75;
+    display: none;
+}
+.dashboard section.srs-progress .srs-innner-progress .leech-count {
+    background-color: black;
+    position: absolute;
+    right: -1.0em;
+    bottom: -2.5em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    font-size: 1em;
+    opacity: 0.25;
+    font-weight: 100;
+}
+.dashboard section.srs-progress .srs-innner-progress .leech-count a {
+    color: white;
+}
+.dashboard section.srs-progress li:hover .srs-innner-progress .leech-count {
+    opacity: 1.0;
+}
+.dashboard section.srs-progress li:hover .srs-innner-progress .leech-count .leech-breakdown {
+    display: inline;
+}
+</style>`
+
+	$('head').append(style);
+
 	const leechThreshold = 1;
 	const config = {
 		wk_items: {
