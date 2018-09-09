@@ -28,15 +28,11 @@
 	position: relative;
 	color: #fff;
 }
-.srs-progress .srs-progress-details span.srs-progress-details-count {
-    display: inline;
-    font-size: 15px;
-    font-weight: initial;
-    text-shadow: initial;
-}
+
 .dashboard section.srs-progress span {
     margin-bottom: 4px;
 }
+
 .dashboard section.srs-progress .srs-progress-details .leech-count .leech-breakdown {
     background-color: black;
     font-size: 0.8em;
@@ -44,6 +40,7 @@
     opacity: 0.75;
     display: none;
 }
+
 .dashboard section.srs-progress .srs-progress-details .leech-count {
     background-color: black;
     position: absolute;
@@ -55,12 +52,11 @@
     opacity: 0.25;
     font-weight: 100;
 }
-.dashboard section.srs-progress .srs-progress-details .leech-count a {
-    color: white;
-}
+
 .dashboard section.srs-progress li:hover .srs-progress-details .leech-count {
     opacity: 1.0;
 }
+
 .dashboard section.srs-progress li:hover .srs-progress-details .leech-count .leech-breakdown {
     display: inline;
 }
