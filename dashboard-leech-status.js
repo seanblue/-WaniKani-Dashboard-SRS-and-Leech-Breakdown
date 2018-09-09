@@ -59,16 +59,14 @@
 	}
 
 	function mapItemsToSrs(items) {
-		let itemsBySrs = {
-			1: getEmptySrsStatus(),
-			2: getEmptySrsStatus(),
-			3: getEmptySrsStatus(),
-			4: getEmptySrsStatus(),
-			5: getEmptySrsStatus(),
-			6: getEmptySrsStatus(),
-			7: getEmptySrsStatus(),
-			8: getEmptySrsStatus()
-		};
+		let itemsBySrs = [1, 2, 3, 4, 5, 6, 7, 8].reduce((result, srs) => {
+			result[srs] = {
+				total: 0,
+				leech: 0
+			};
+
+			return result;
+		}, {});
 
 		items.forEach(function(item) {
 			let srsStage = getSrsStage(item.assignments);
@@ -80,13 +78,6 @@
 		});
 
 		return itemsBySrs;
-	}
-
-	function getEmptySrsStatus() {
-		return {
-			total: 0,
-			leech: 0
-		};
 	}
 
 	function isLeech(item) {
@@ -106,7 +97,7 @@
 	}
 
 	function updatePage(itemsBySrs) {
-		
+
 	}
 
 })();
