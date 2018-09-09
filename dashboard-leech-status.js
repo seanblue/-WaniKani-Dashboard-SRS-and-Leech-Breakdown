@@ -24,11 +24,11 @@
 
      let style =
 		`<style>
-.srs-inner-progress {
+.srs-progress-details {
 	position: relative;
 	color: #fff;
 }
-.srs-progress .srs-inner-progress span.srs-inner-progress-count {
+.srs-progress .srs-progress-details span.srs-progress-details-count {
     display: inline;
     font-size: 15px;
     font-weight: initial;
@@ -37,14 +37,14 @@
 .dashboard section.srs-progress span {
     margin-bottom: 4px;
 }
-.dashboard section.srs-progress .srs-inner-progress .leech-count .leech-breakdown {
+.dashboard section.srs-progress .srs-progress-details .leech-count .leech-breakdown {
     background-color: black;
     font-size: 0.8em;
     font-weight: 100;
     opacity: 0.75;
     display: none;
 }
-.dashboard section.srs-progress .srs-inner-progress .leech-count {
+.dashboard section.srs-progress .srs-progress-details .leech-count {
     background-color: black;
     position: absolute;
     right: -1.0em;
@@ -55,13 +55,13 @@
     opacity: 0.25;
     font-weight: 100;
 }
-.dashboard section.srs-progress .srs-inner-progress .leech-count a {
+.dashboard section.srs-progress .srs-progress-details .leech-count a {
     color: white;
 }
-.dashboard section.srs-progress li:hover .srs-inner-progress .leech-count {
+.dashboard section.srs-progress li:hover .srs-progress-details .leech-count {
     opacity: 1.0;
 }
-.dashboard section.srs-progress li:hover .srs-inner-progress .leech-count .leech-breakdown {
+.dashboard section.srs-progress li:hover .srs-progress-details .leech-count .leech-breakdown {
     display: inline;
 }
 </style>`
@@ -151,13 +151,13 @@
 	}
 
 	function displayDetailedSection(srsSectionId, itemsBySrs, srsLevelsArray) {
-		addFilledTotalBreakdownSection(srsSectionId, itemsBySrs, srsLevelsArray);
-		addDetailedLeechSection(srsSectionId, itemsBySrs, srsLevelsArray);
+		let srsProgressDetailsSection = addFilledTotalBreakdownSection(srsSectionId, itemsBySrs, srsLevelsArray);
+		addDetailedLeechSection(srsProgressDetailsSection, itemsBySrs, srsLevelsArray);
 	}
 
 	function displaySimpleSection(srsSectionId, itemsBySrs, srsLevel) {
-		addEmptyTotalBreakdownSection(srsSectionId);
-		addSimpleLeechSection(srsSectionId, itemsBySrs, srsLevel);
+		let srsProgressDetailsSection = addEmptyTotalBreakdownSection(srsSectionId);
+		addSimpleLeechSection(srsProgressDetailsSection, itemsBySrs, srsLevel);
 	}
 
 	function displayEmptySection(srsSectionId) {
@@ -166,35 +166,37 @@
 
 	function addFilledTotalBreakdownSection(srsSectionId, itemsBySrs, srsLevelsArray) {
 		let totals = srsLevelsArray.map(srs => itemsBySrs[srs].total).join('&nbsp;/&nbsp;');
-		addTotalBreakdownSection(srsSectionId, `${totals}`);
+		return addTotalBreakdownSection(srsSectionId, `${totals}`);
 	}
 
 	function addEmptyTotalBreakdownSection(srsSectionId) {
-		addTotalBreakdownSection(srsSectionId, '&nbsp;');
+		return addTotalBreakdownSection(srsSectionId, '&nbsp;');
 	}
 
 	function addTotalBreakdownSection(srsSectionId, sectionContent) {
-		let section = $(`<div class="srs-inner-progress">${sectionContent}</div>`);
+		let section = $(`<div class="srs-progress-details">${sectionContent}</div>`);
 		$(`#${srsSectionId} span`).after(section);
+
+		return section;
 	}
 
-	function addDetailedLeechSection(srsSectionId, itemsBySrs, srsLevelsArray) {
+	function addDetailedLeechSection(srsProgressDetailsSection, itemsBySrs, srsLevelsArray) {
 		let leechArray = srsLevelsArray.map(srsLevel => itemsBySrs[srsLevel].leech);
 		let leechBreakdown = leechArray.join('&nbsp;/&nbsp;');
 		let leechTotal = leechArray.reduce((total, val) => total + val, 0);
 
 		let sectionContent = `<span class="leech-breakdown">(${leechBreakdown})&nbsp;</span>${leechTotal}`;
 
-		addLeechSection(srsSectionId, sectionContent);
+		addLeechSection(srsProgressDetailsSection, sectionContent);
 	}
 
-	function addSimpleLeechSection(srsSectionId, itemsBySrs, srsLevel) {
-		addLeechSection(srsSectionId, `${itemsBySrs[srsLevel].leech}`);
+	function addSimpleLeechSection(srsProgressDetailsSection, itemsBySrs, srsLevel) {
+		addLeechSection(srsProgressDetailsSection, `${itemsBySrs[srsLevel].leech}`);
 	}
 
-	function addLeechSection(srsSectionId, sectionContent) {
+	function addLeechSection(srsProgressDetailsSection, sectionContent) {
 		let section = `<span class="leech-count">${sectionContent}</span>`;
 
-		$(`#${srsSectionId} .srs-inner-progress`).append(section);
+		srsProgressDetailsSection.append(section);
 	}
 })();
