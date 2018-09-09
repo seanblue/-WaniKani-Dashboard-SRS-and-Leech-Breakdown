@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name          WaniKani Dashboard Leech Status
+// @name          WaniKani Dashboard SRS and Leech Breakdown
 // @namespace     https://www.wanikani.com
-// @description   Show leech status on dashboard
+// @description   Show SRS and leech breakdown on dashboard
 // @author        seanblue
 // @version       0.9.0
 // @include       https://www.wanikani.com/dashboard
@@ -13,7 +13,7 @@
     'use strict';
 
 	if (!window.wkof) {
-		let response = confirm('WaniKani Dashboard Leech Status script requires WaniKani Open Framework.\n Click "OK" to be forwarded to installation instructions.');
+		let response = confirm('WaniKani Dashboard SRS and Leech Breakdown script requires WaniKani Open Framework.\n Click "OK" to be forwarded to installation instructions.');
 
 		if (response) {
 			window.location.href = 'https://community.wanikani.com/t/instructions-installing-wanikani-open-framework/28549';
@@ -143,7 +143,28 @@
 	}
 
 	function updatePage(itemsBySrs) {
-
+		displaySrsBreakdown(itemsBySrs);
 	}
 
+	function displaySrsBreakdown(itemsBySrs) {
+		addFilledTotalBreakdownSection(itemsBySrs, 'apprentice', [1, 2, 3, 4]);
+		addFilledTotalBreakdownSection(itemsBySrs, 'guru', [5, 6]);
+		addEmptyTotalBreakdownSection('master');
+		addEmptyTotalBreakdownSection('enlightened');
+		addEmptyTotalBreakdownSection('burned');
+	}
+
+	function addFilledTotalBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray) {
+		let totals = srsLevelsArray.map(srs => itemsBySrs[srs].total).join('&nbsp;/&nbsp;');
+		addTotalBreakdownSection(srsSectionId, `${totals}`);
+	}
+
+	function addEmptyTotalBreakdownSection(srsSectionId) {
+		addTotalBreakdownSection(srsSectionId, '&nbsp;');
+	}
+
+	function addTotalBreakdownSection(srsSectionId, sectionContent) {
+		let section = $(`<div class="srs-innner-progress">${sectionContent}</div>`);
+		$(`#${srsSectionId} span`).after(section);
+	}
 })();
