@@ -30,7 +30,7 @@
 }
 
 .dashboard section.srs-progress span {
-    margin-bottom: 4px;
+    margin-bottom: 0.2em;
 }
 
 .dashboard section.srs-progress .srs-progress-details .leech-count .leech-breakdown {
