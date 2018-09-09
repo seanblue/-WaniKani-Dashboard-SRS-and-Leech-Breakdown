@@ -152,12 +152,12 @@
 
 	function displayDetailedSection(itemsBySrs, srsSectionId, srsLevelsArray) {
 		addFilledTotalBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray);
-		addDetailedLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray);
+		addDetailedLeechSection(itemsBySrs, srsSectionId, srsLevelsArray);
 	}
 
 	function displaySimpleSection(itemsBySrs, srsSectionId, srsLevel) {
 		addEmptyTotalBreakdownSection(srsSectionId);
-		addSimpleLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevel);
+		addSimpleLeechSection(itemsBySrs, srsSectionId, srsLevel);
 	}
 
 	function displayEmptySection(srsSectionId) {
@@ -178,19 +178,23 @@
 		$(`#${srsSectionId} span`).after(section);
 	}
 
-	function addDetailedLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray) {
+	function addDetailedLeechSection(itemsBySrs, srsSectionId, srsLevelsArray) {
 		let leechArray = srsLevelsArray.map(srsLevel => itemsBySrs[srsLevel].leech);
 		let leechBreakdown = leechArray.join('&nbsp;/&nbsp;');
 		let leechTotal = leechArray.reduce((total, val) => total + val, 0);
-		let section = `<span class="leech-count"><span class="leech-breakdown">(${leechBreakdown})&nbsp;</span>${leechTotal}</span>`;
+
+		let sectionContent = `<span class="leech-breakdown">(${leechBreakdown})&nbsp;</span>${leechTotal}`;
+
+		addLeechSection(srsSectionId, sectionContent);
+	}
+
+	function addSimpleLeechSection(itemsBySrs, srsSectionId, srsLevel) {
+		addLeechSection(srsSectionId, `${itemsBySrs[srsLevel].leech}`);
+	}
+
+	function addLeechSection(srsSectionId, sectionContent) {
+		let section = `<span class="leech-count">${sectionContent}</span>`;
 
 		$(`#${srsSectionId} .srs-innner-progress`).append(section);
 	}
-
-	function addSimpleLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevel) {
-		let section = `<span class="leech-count">${itemsBySrs[srsLevel].leech}</span>`;
-
-		$(`#${srsSectionId} .srs-innner-progress`).append(section);
-	}
-
 })();
