@@ -36,15 +36,11 @@
 	wkof.ready('ItemData').then(getItems).then(mapItemsToSrs).then(updatePage);
 
 	function getItems(items) {
-		return wkof.ItemData.get_items(config).then(filterItems);
+		return wkof.ItemData.get_items(config).then(filterToActiveAssignments);
 	}
 
-	function filterItems(items) {
-		return items.filter(isLeech);
-	}
-
-	function isLeech(item) {
-		return itemIsActiveAssignment(item) && itemIsOverLeechThreshold(item);
+	function filterToActiveAssignments(items) {
+		return items.filter(itemIsActiveAssignment);
 	}
 
 	function itemIsActiveAssignment(item) {
@@ -62,7 +58,38 @@
 		return assignments.srs_stage;
 	}
 
-	function itemIsOverLeechThreshold(item) {
+	function mapItemsToSrs(items) {
+		let itemsBySrs = {
+			1: getEmptySrsStatus(),
+			2: getEmptySrsStatus(),
+			3: getEmptySrsStatus(),
+			4: getEmptySrsStatus(),
+			5: getEmptySrsStatus(),
+			6: getEmptySrsStatus(),
+			7: getEmptySrsStatus(),
+			8: getEmptySrsStatus()
+		};
+
+		items.forEach(function(item) {
+			let srsStage = getSrsStage(item.assignments);
+			itemsBySrs[srsStage].total++;
+
+			if (isLeech(item)) {
+				itemsBySrs[srsStage].leech++;
+			}
+		});
+
+		return itemsBySrs;
+	}
+
+	function getEmptySrsStatus() {
+		return {
+			total: 0,
+			leech: 0
+		};
+	}
+
+	function isLeech(item) {
 		if (item.review_statistics === undefined) {
 			return false;
 		}
@@ -78,28 +105,8 @@
 		return incorrect / Math.pow((currentStreak || 0.5), 1.5);
 	}
 
-	function mapItemsToSrs(items) {
-		let leechesBySrs = {
-			1: 0,
-			2: 0,
-			3: 0,
-			4: 0,
-			5: 0,
-			6: 0,
-			7: 0,
-			8: 0
-		};
-
-		items.forEach(function(item) {
-			let srsStage = getSrsStage(item.assignments);
-			leechesBySrs[srsStage]++;
-		});
-
-		return leechesBySrs;
-	}
-
-	function updatePage(items) {
-
+	function updatePage(itemsBySrs) {
+		
 	}
 
 })();
