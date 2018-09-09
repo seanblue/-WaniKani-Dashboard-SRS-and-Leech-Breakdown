@@ -41,6 +41,10 @@
     display: none;
 }
 
+.dashboard section.srs-progress li:hover .srs-progress-details .leech-count .leech-breakdown {
+    display: inline;
+}
+
 .dashboard section.srs-progress .srs-progress-details .leech-count {
     background-color: black;
     position: absolute;
@@ -55,10 +59,6 @@
 
 .dashboard section.srs-progress li:hover .srs-progress-details .leech-count {
     opacity: 1.0;
-}
-
-.dashboard section.srs-progress li:hover .srs-progress-details .leech-count .leech-breakdown {
-    display: inline;
 }
 </style>`
 
