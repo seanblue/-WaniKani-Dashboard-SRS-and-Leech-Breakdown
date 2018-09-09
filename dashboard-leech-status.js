@@ -143,16 +143,25 @@
 	}
 
 	function updatePage(itemsBySrs) {
-		displaySrsBreakdown(itemsBySrs);
-		displayLeechBreakdown(itemsBySrs);
+		displayDetailedSection(itemsBySrs, 'apprentice', [1, 2, 3, 4]);
+		displayDetailedSection(itemsBySrs, 'guru', [5, 6]);
+		displaySimpleSection(itemsBySrs, 'master', 7);
+		displaySimpleSection(itemsBySrs, 'enlightened', 8);
+		displayEmptySection('burned');
 	}
 
-	function displaySrsBreakdown(itemsBySrs) {
-		addFilledTotalBreakdownSection(itemsBySrs, 'apprentice', [1, 2, 3, 4]);
-		addFilledTotalBreakdownSection(itemsBySrs, 'guru', [5, 6]);
-		addEmptyTotalBreakdownSection('master');
-		addEmptyTotalBreakdownSection('enlightened');
-		addEmptyTotalBreakdownSection('burned');
+	function displayDetailedSection(itemsBySrs, srsSectionId, srsLevelsArray) {
+		addFilledTotalBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray);
+		addDetailedLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray);
+	}
+
+	function displaySimpleSection(itemsBySrs, srsSectionId, srsLevel) {
+		addEmptyTotalBreakdownSection(srsSectionId);
+		addSimpleLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevel);
+	}
+
+	function displayEmptySection(srsSectionId) {
+		addEmptyTotalBreakdownSection(srsSectionId);
 	}
 
 	function addFilledTotalBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray) {
@@ -167,13 +176,6 @@
 	function addTotalBreakdownSection(srsSectionId, sectionContent) {
 		let section = $(`<div class="srs-innner-progress">${sectionContent}</div>`);
 		$(`#${srsSectionId} span`).after(section);
-	}
-
-	function displayLeechBreakdown(itemsBySrs) {
-		addDetailedLeechBreakdownSection(itemsBySrs, 'apprentice', [1, 2, 3, 4]);
-		addDetailedLeechBreakdownSection(itemsBySrs, 'guru', [5, 6]);
-		addSimpleLeechBreakdownSection(itemsBySrs, 'master', 7);
-		addSimpleLeechBreakdownSection(itemsBySrs, 'enlightened', 8);
 	}
 
 	function addDetailedLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray) {
