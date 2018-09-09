@@ -24,11 +24,11 @@
 
      let style =
 		`<style>
-.srs-innner-progress {
+.srs-inner-progress {
 	position: relative;
 	color: #fff;
 }
-.srs-progress .srs-innner-progress span.srs-inner-progress-count {
+.srs-progress .srs-inner-progress span.srs-inner-progress-count {
     display: inline;
     font-size: 15px;
     font-weight: initial;
@@ -37,14 +37,14 @@
 .dashboard section.srs-progress span {
     margin-bottom: 4px;
 }
-.dashboard section.srs-progress .srs-innner-progress .leech-count .leech-breakdown {
+.dashboard section.srs-progress .srs-inner-progress .leech-count .leech-breakdown {
     background-color: black;
     font-size: 0.8em;
     font-weight: 100;
     opacity: 0.75;
     display: none;
 }
-.dashboard section.srs-progress .srs-innner-progress .leech-count {
+.dashboard section.srs-progress .srs-inner-progress .leech-count {
     background-color: black;
     position: absolute;
     right: -1.0em;
@@ -55,13 +55,13 @@
     opacity: 0.25;
     font-weight: 100;
 }
-.dashboard section.srs-progress .srs-innner-progress .leech-count a {
+.dashboard section.srs-progress .srs-inner-progress .leech-count a {
     color: white;
 }
-.dashboard section.srs-progress li:hover .srs-innner-progress .leech-count {
+.dashboard section.srs-progress li:hover .srs-inner-progress .leech-count {
     opacity: 1.0;
 }
-.dashboard section.srs-progress li:hover .srs-innner-progress .leech-count .leech-breakdown {
+.dashboard section.srs-progress li:hover .srs-inner-progress .leech-count .leech-breakdown {
     display: inline;
 }
 </style>`
@@ -174,7 +174,7 @@
 	}
 
 	function addTotalBreakdownSection(srsSectionId, sectionContent) {
-		let section = $(`<div class="srs-innner-progress">${sectionContent}</div>`);
+		let section = $(`<div class="srs-inner-progress">${sectionContent}</div>`);
 		$(`#${srsSectionId} span`).after(section);
 	}
 
@@ -195,6 +195,6 @@
 	function addLeechSection(srsSectionId, sectionContent) {
 		let section = `<span class="leech-count">${sectionContent}</span>`;
 
-		$(`#${srsSectionId} .srs-innner-progress`).append(section);
+		$(`#${srsSectionId} .srs-inner-progress`).append(section);
 	}
 })();
