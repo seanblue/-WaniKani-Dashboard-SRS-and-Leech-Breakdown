@@ -144,6 +144,7 @@
 
 	function updatePage(itemsBySrs) {
 		displaySrsBreakdown(itemsBySrs);
+		displayLeechBreakdown(itemsBySrs);
 	}
 
 	function displaySrsBreakdown(itemsBySrs) {
@@ -167,4 +168,27 @@
 		let section = $(`<div class="srs-innner-progress">${sectionContent}</div>`);
 		$(`#${srsSectionId} span`).after(section);
 	}
+
+	function displayLeechBreakdown(itemsBySrs) {
+		addDetailedLeechBreakdownSection(itemsBySrs, 'apprentice', [1, 2, 3, 4]);
+		addDetailedLeechBreakdownSection(itemsBySrs, 'guru', [5, 6]);
+		addSimpleLeechBreakdownSection(itemsBySrs, 'master', 7);
+		addSimpleLeechBreakdownSection(itemsBySrs, 'enlightened', 8);
+	}
+
+	function addDetailedLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevelsArray) {
+		let leechArray = srsLevelsArray.map(srsLevel => itemsBySrs[srsLevel].leech);
+		let leechBreakdown = leechArray.join('&nbsp;/&nbsp;');
+		let leechTotal = leechArray.reduce((total, val) => total + val, 0);
+		let section = `<span class="leech-count"><span class="leech-breakdown">(${leechBreakdown})&nbsp;</span>${leechTotal}</span>`;
+
+		$(`#${srsSectionId} .srs-innner-progress`).append(section);
+	}
+
+	function addSimpleLeechBreakdownSection(itemsBySrs, srsSectionId, srsLevel) {
+		let section = `<span class="leech-count">${itemsBySrs[srsLevel].leech}</span>`;
+
+		$(`#${srsSectionId} .srs-innner-progress`).append(section);
+	}
+
 })();
