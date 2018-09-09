@@ -143,19 +143,19 @@
 	}
 
 	function updatePage(itemsBySrs) {
-		displayDetailedSection(itemsBySrs, 'apprentice', [1, 2, 3, 4]);
-		displayDetailedSection(itemsBySrs, 'guru', [5, 6]);
-		displaySimpleSection(itemsBySrs, 'master', 7);
-		displaySimpleSection(itemsBySrs, 'enlightened', 8);
+		displayDetailedSection('apprentice', itemsBySrs, [1, 2, 3, 4]);
+		displayDetailedSection('guru', itemsBySrs, [5, 6]);
+		displaySimpleSection('master', itemsBySrs, 7);
+		displaySimpleSection('enlightened', itemsBySrs, 8);
 		displayEmptySection('burned');
 	}
 
-	function displayDetailedSection(itemsBySrs, srsSectionId, srsLevelsArray) {
+	function displayDetailedSection(srsSectionId, itemsBySrs, srsLevelsArray) {
 		addFilledTotalBreakdownSection(srsSectionId, itemsBySrs, srsLevelsArray);
 		addDetailedLeechSection(srsSectionId, itemsBySrs, srsLevelsArray);
 	}
 
-	function displaySimpleSection(itemsBySrs, srsSectionId, srsLevel) {
+	function displaySimpleSection(srsSectionId, itemsBySrs, srsLevel) {
 		addEmptyTotalBreakdownSection(srsSectionId);
 		addSimpleLeechSection(srsSectionId, itemsBySrs, srsLevel);
 	}
