@@ -3,7 +3,7 @@
 // @namespace     https://www.wanikani.com
 // @description   Show SRS and leech breakdown on dashboard
 // @author        seanblue
-// @version       0.9.0
+// @version       1.0.0
 // @include       https://www.wanikani.com/dashboard
 // @include       https://www.wanikani.com/
 // @grant         none
